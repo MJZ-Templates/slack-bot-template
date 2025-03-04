@@ -246,16 +246,15 @@ public class GoormCommand implements CommandService {
 
 5. Useful shortcut
 
-  | Shortcuts name     | Command (Mac) | Command (Window) |
-      | ------------------ | :-----------: | :--------------: |
-  | Copy in Terminal   | ⌘ + C         | Ctrl + Shift + C |
-  | Paste in Terminal  | ⌘ + V         | Ctrl + Shift + V |
-  | Search File        | ⌥ + ⇧ + F     | Alt + Shift + F  |
-  | Terminal Toggle    | ⌥ + ⇧ + B     | Alt + Shift + B  |
-  | New Terminal       | ⌥ + ⇧ + T     | Alt + Shift + T  |
-  | Code Formatting    | ⌥ + ⇧ + P     | Alt + Shift + P  |
-  | View All Shortcuts | ⌘ + H         | Ctrl + H         |
-
+    | Shortcuts name     | Command (Mac) | Command (Window) |
+    | ------------------ | :-----------: | :--------------: |
+    | Copy in Terminal   | ⌘ + C         | Ctrl + Shift + C |
+    | Paste in Terminal  | ⌘ + V         | Ctrl + Shift + V |
+    | Search File        | ⌥ + ⇧ + F     | Alt + Shift + F  |
+    | Terminal Toggle    | ⌥ + ⇧ + B     | Alt + Shift + B  |
+    | New Terminal       | ⌥ + ⇧ + T     | Alt + Shift + T  |
+    | Code Formatting    | ⌥ + ⇧ + P     | Alt + Shift + P  |
+    | View All Shortcuts | ⌘ + H         | Ctrl + H         |
 
 ### 💬 Support & Documentation
 Visit [https://arkain.io](https://arkain.io) to support and learn more about using Arkain.
