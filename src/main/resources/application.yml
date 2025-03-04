@@ -1,0 +1,19 @@
+spring:
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: ${OPENAI_MODEL:gpt-4o-mini}
+  messages:
+    encoding: utf-8
+slack:
+  signing-secret: ${SLACK_SIGNING_SECRET}
+  bot-token: ${SLACK_BOT_TOKEN}
+  bot:
+    name: ${SLACK_BOT_NAME}
+  reminder:
+    channel: ${CHANNEL_NAME}
+    message: "Don't forget to do your daily standup!"
+  response:
+    message: "Thanks for your standup update!"
