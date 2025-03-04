@@ -1,19 +1,25 @@
+# Be careful not to expose your API keys in public repositories.
+# Please be careful with indentation. Indentation in the same level should be the same.
 spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
         options:
-          model: ${OPENAI_MODEL:gpt-4o-mini}
+          # you can change the OPENAI_MODEL. read the docs here. https://platform.openai.com/docs/models
+          # for example, you can change the model to gpt-4.5-preview, gpt-4o, o1, etc
+          # model: ${OPENAI_MODEL:gpt-4.5-preview}
+          # or you can export the environment variable like OPENAI_MODEL=gpt-4.5-preview
+          model: ${OPENAI_MODEL:gpt-4o}
   messages:
     encoding: utf-8
 slack:
+  # you can get the signing secret from your slack app
   signing-secret: ${SLACK_SIGNING_SECRET}
+
+    # you can get the bot token from your slack app
   bot-token: ${SLACK_BOT_TOKEN}
   bot:
+    # you can get the bot name from sh
+    # click terminal, use command `./sh/get_slackbot_id.sh` to get the bot name
     name: ${SLACK_BOT_NAME}
-  reminder:
-    channel: ${CHANNEL_NAME}
-    message: "Don't forget to do your daily standup!"
-  response:
-    message: "Thanks for your standup update!"

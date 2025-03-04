@@ -5,19 +5,24 @@ import goorm.dev.server.slack.slack.app.dto.SlackCommandRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * Just copy and past new command class and change the class name
+ * change supports method to check if the slash command matches the one you set
+ * and processCommand method will have the actual logic based on the command
+ */
 @Service
 @RequiredArgsConstructor
 public class TemplateCommand  implements CommandService {
 
     @Override
     public boolean supports(SlackCommandRequest dto) {
-        // 내가 설정한 command와 일치하는지 확인
+        // check if the command matches the one I set
         return dto.command().equals("/{my_command}");
     }
 
     @Override
     public String processCommand(SlackCommandRequest dto) {
-        // command에 따라 다른 로직을 수행
+        // actual logic based on the command
         return null;
     }
 }

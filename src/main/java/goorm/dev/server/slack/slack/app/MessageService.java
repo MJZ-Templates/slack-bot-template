@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * This class actually sends messages to slack.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

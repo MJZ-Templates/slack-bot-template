@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * This class handles API requests that are not slash commands.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class SlackEventService {
         }
 
         log.info("SlackEventService.processEvent: {}", dto);
-        messageService.sendMessage(dto.event().channel(), "EventService 호출됨");
+        messageService.sendMessage(dto.event().channel(), "EventService called");
 
         return "OK";
     }

@@ -18,17 +18,17 @@ public class SlackRequestConverter {
 
     public SlackDto convert(HttpServletRequest request) {
         try {
-            // 요청 본문을 JSON으로 변환
+            // convert request body to JSON
             String requestBody;
             try (var reader = request.getReader()) {
                 requestBody = reader.lines().reduce("", (acc, line) -> acc + line);
             }
 
-            // JSON 데이터를 Map으로 변환
+            // convert json data to map
             Map<String, Object> jsonMap = objectMapper.readValue(requestBody, Map.class);
             Map<String, Object> eventMap = (Map<String, Object>) jsonMap.get("event");
 
-            // 이벤트가 존재하는 경우만 DTO 생성
+            // create dto only if event exists
             if (eventMap != null) {
                 SlackEvent event = new SlackEvent(
                         (String) eventMap.getOrDefault("user", ""),
@@ -44,7 +44,7 @@ public class SlackRequestConverter {
                 );
             }
 
-            return null; // 이벤트가 없는 경우 null 반환
+            return null; // return null if event does not exist
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse Slack request", e);
         }

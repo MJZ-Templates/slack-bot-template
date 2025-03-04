@@ -26,6 +26,8 @@ public class OpenAiService implements AiService {
     @Override
     public String getResponse(String message) {
         PromptTemplate promptTemplate = new PromptTemplate(examplePrompt);
+
+        // can add prompt parameters with Map.of("key", "value")
         Prompt prompt = promptTemplate.create(Map.of("message", message));
         ChatResponse response = chatModel.call(prompt);
         log.info("prompt is {}", prompt.getContents());

@@ -6,6 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class dispatch the requests from the slack.
+ * request with slash command will be processed by slackCommandService
+ * the other will be processed by slackEventService
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
