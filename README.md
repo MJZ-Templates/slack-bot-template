@@ -1,135 +1,217 @@
-# Slack API Bot 템플릿
+# Slack API Bot Template
 
-## 1. 템플릿 소개
+## 1. Template Introduction
 
-해당 템플릿은 Slack API Bot 개발을 위한 템플릿입니다.
+This template is designed for developing a Slack API Bot.
 
-## 2. 기술 스택
+<br>
 
-- **Java21**
+## 2. Technology Stack
+
+- **Java 21**
 - **Spring Boot 3.4.3**
 - **Spring AI**
-  - **OpenAI API** (사용자가 원하는 방향으로 커스텀 가능)
-  - AiService를 추가하여 다른 LLM API를 활용가능합니다.
-- **Bolt (Slack 연동)**
+    - **OpenAI API** (Customizable based on user needs)
+    - AiService can be added to utilize other LLM APIs.
+- **Bolt (Slack Integration)**
 
-## 3. 환경 설정
+<br>
 
-### 1) Slack 설정
+## 3. Environment Setup
 
-Slack API Bot을 개발하기 전에 환경 설정이 필요합니다.
+### 1) Slack Configuration
 
-- 설정은 [Slack API 사이트](https://api.slack.com/apps/)에서 진행할 수 있습니다.
-- 보다 자세한 내용은 [해당 가이드](https://tech.goorm.io/ko/%EC%8A%AC%EB%9E%99%EB%B4%87-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EC%96%B4%EB%A0%B5%EC%A7%80-%EC%95%8A%EC%95%84%EC%9A%94/)를 참고하세요.
-- 설정을 통해 **SIGNING_SECRET, SLACK_BOT_TOKEN** 을 얻을 수 있습니다.
-- 환경 변수 등록 방법:
+Before developing a Slack API Bot, environment setup is required.
 
-1️⃣ export를 이용한 환경 변수 등록
+- Configuration can be done on the [Slack API site](https://api.slack.com/apps/).
+- For more details, refer to [this guide](https://tech.goorm.io/ko/%EC%8A%AC%EB%9E%99%EB%B4%87-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EC%96%B4%EB%A0%B5%EC%A7%80-%EC%95%8A%EC%95%84%EC%9A%94/).
+- You can obtain **SIGNING_SECRET, SLACK_BOT_TOKEN** through the configuration.
+
+<br>
+
+#### Setting Environment Variables:
+
+**1️⃣ Using `export` Command**
+Run the following commands in the terminal (inside the project root). Note that these need to be re-entered each time the container restarts.
 
 ```sh
 export SIGNING_SECRET="your_signing_secret"
 export SLACK_BOT_TOKEN="your_bot_token"
 ```
 
-2️⃣ application.yml을 이용한 환경 변수 등록
+To make the environment variables persistent, add them to the `bashrc` file:
 
+1. Copy the above commands.
+2. Open the bashrc file:
+
+```sh
+vi ~/.bashrc
 ```
+
+3. Press `shift + g` to go to the end of the file.
+4. Press `o` to enter insert mode.
+5. Paste the copied environment variables.
+6. Press `esc` to exit insert mode.
+7. Type `:wq` and press enter to save and exit.
+
+<br>
+
+**2️⃣ Registering in `application.yml`**
+
+```yaml
 slack:
   signing-secret: ${SLACK_SIGNING_SECRET}
   bot-token: ${SLACK_BOT_TOKEN}
 ```
 
-환경변수는 절대로 외부에 노출되면 안됩니다. 만약 application.yml에 slack api를 작성한다면 외부 공유를 하지 말아주세요.
+**Warning:** Do not expose your environment variables publicly. If writing them in `application.yml`, avoid sharing it externally.
 
-### 2) OpenAI API 설정
+<br>
 
-LLM 기능을 사용하기 위해 **OPENAI_API_KEY**가 필요합니다.
+### 2) OpenAI API Configuration
 
-- [OpenAI API 사이트](https://openai.com/index/openai-api/)에서 **API Key**를 발급받을 수 있습니다.
-- 발급받은 Key는 **application.yml**에 작성하거나 환경 변수로 등록해야 합니다.
+To use the LLM feature, **OPENAI_API_KEY** is required.
 
-환경 변수 등록 방법:
+- The **API Key** can be obtained from the [OpenAI API site](https://openai.com/index/openai-api/).
+- The key should be registered in `application.yml` or set as an environment variable.
 
-1️⃣ export를 이용한 환경 변수 등록
+<br>
+
+#### Setting Environment Variables:
+
+**1️⃣ Using `export` Command**
 
 ```sh
 export OPENAI_API_KEY="your_openai_api_key"
 ```
 
-2️⃣ application.yml을 이용한 환경 변수 등록
+To make it persistent, follow the same steps as above to add it to `~/.bashrc`.
 
-```
+<br>
+
+**2️⃣ Registering in `application.yml`**
+
+```yaml
 spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
 ```
 
-마찬가지로 OPENAI_API_KEY는 절대로 외부에 노출되면 안됩니다. 만약 application.yml에 open ai api를 작성한다면 외부 공유를 하지 말아주세요.
+Again, **do not expose your API key publicly.**
 
-### 3) Shell 명령어 사용하기
+<br>
 
-Slack API 문서를 참고하여 **Channel ID, Slack Bot ID**를 알아내야 합니다.
+### 3) Using Shell Commands
 
-- 해당 템플릿은 필요한 환경 변수 값을 쉽게 찾을 수 있도록 **sh 명령어**를 제공합니다.
-- **SLACK_BOT_TOKEN** 을 이용해 실행할 수 있습니다.
+If **Channel ID** or **Slack Bot ID** is needed, this template provides shell commands to fetch these values easily.
 
-#### Channel ID 조회
+- Requires only **SLACK_BOT_TOKEN** to execute.
+
+<br>
+
+#### Retrieve Channel ID
 
 ```sh
 ./sh/get_channels.sh
 ```
 
-터미널에서 실행한 후 `SLACK_BOT_TOKEN`을 입력하면 됩니다.
+Enter `SLACK_BOT_TOKEN` when prompted.
 
-#### SlackBot ID 조회
+<br>
+
+#### Retrieve SlackBot ID
 
 ```sh
 ./sh/get_slackbot_id.sh
 ```
 
-터미널에서 실행한 후 `SLACK_BOT_TOKEN`을 입력하면 됩니다.
+Enter `SLACK_BOT_TOKEN` when prompted.
 
-### 4) OpenAI API 모델 변경하기
+<br>
 
-템플릿은 기본적으로 gpt-4o-mini 모델을 이용합니다. 모델을 변경하고 싶다면 application.yml에 있는 model을 변경해야 합니다.
+### 4) Changing OpenAI API Model
 
-```
+By default, this template uses `gpt-4o-mini`. To change the model, update `application.yml`:
+
+```yaml
 chat:
   options:
     model: ${OPENAI_MODEL:gpt-4o-mini}
 ```
 
-[OpenAI 모델 문서](https://platform.openai.com/docs/models)를 참고해 모델을 변경할 수 있습니다.
+Refer to [OpenAI model documentation](https://platform.openai.com/docs/models) to change the model.
 
-## 4. 커스텀하기
+Examples:
+```yaml
+chat:
+  options:
+    model: ${OPENAI_MODEL:gpt-4o-latest}
+```
 
-### 1) 커스텀 커맨드 추가
+<br>
 
-- `slack/app/command` 경로의 `TemplateCommand`를 복사하여 새로운 기능을 추가할 수 있습니다.
+## 4. Customization
+
+### 1) Adding Custom Commands
+
+- Copy and paste the `TemplateCommand` in `src/main/java/goorm/dev/server/slack/common` to create a new command.
+- Ensure that the new command class has a unique name.
+- The command should match the **Slash Commands** configured in the Slack API.
+- Refer to the `MangoCommand` example, which uses OpenAI to answer user queries.
+- To add a new command, visit the [Slack API site](https://api.slack.com/apps/) and configure **Slash Commands**.
 
 ```java
 @Service
 @RequiredArgsConstructor
 public class TemplateCommand implements CommandService {
-    @Override
-    public boolean supports(SlackCommandRequest dto) {
-        // 내가 설정한 command와 일치하는지 확인
-        return dto.command().equals("/{my_command}");
-    }
-    @Override
-    public String processCommand(SlackCommandRequest dto) {
-        // command에 따라 다른 로직을 수행
-        return null;
-    }
+
+  private static final String SLASH_COMMAND = "/{my_command}";
+
+  @Override
+  public boolean supports(SlackCommandRequest dto) {
+    return dto.command().equals(SLASH_COMMAND);
+  }
+
+  @Override
+  public String processCommand(SlackCommandRequest dto) {
+    return null;
+  }
 }
 ```
 
-- 예제 `MangoCommand`를 참고하면, OpenAI를 활용해 사용자의 질문에 답변하는 기능을 구현할 수 있습니다.
-  - MangoCommand는 LLM을 이용해 사용자가 질문한 내용에 대해 답변해줍니다.
-- 새로운 커맨드를 추가하려면 [Slack API 사이트](https://api.slack.com/apps/)에서 **Slash Commands**를 추가해야 합니다.
+Example: Adding a `/goorm` slash command.
 
-### 2) OpenAI 프롬프트 커스텀
+1. Visit the Slack API site and create a new Slash Command under:
+    - Features > Slash Commands > Create New Command
+    - Add `/goorm` as an example.
+2. Copy and paste `TemplateCommand` and rename it to `GoormCommand`.
 
-- `src/main/resources/templates/prompt.txt` 파일을 수정하여 **프롬프트 엔지니어링**이 가능합니다.
-- 원하는 내용을 `.txt` 파일에 작성하고 서버를 재시작하면 자동으로 반영됩니다.
+```java
+@Service
+@RequiredArgsConstructor
+public class GoormCommand implements CommandService {
+
+  private static final String SLASH_COMMAND = "/goorm";
+
+  @Override
+  public boolean supports(SlackCommandRequest dto) {
+    return dto.command().equals(SLASH_COMMAND);
+  }
+
+  @Override
+  public String processCommand(SlackCommandRequest dto) {
+    return "Hello from GoormCommand!";
+  }
+}
+```
+
+6. Implement the desired logic inside `processCommand`.
+7. Use OpenAI LLM integration for enhanced responses.
+
+<br>
+
+### 2) Customizing OpenAI Prompts
+
+- Modify `src/main/resources/templates/prompt.txt` to customize prompts.
+- Changes will take effect upon server restart.
