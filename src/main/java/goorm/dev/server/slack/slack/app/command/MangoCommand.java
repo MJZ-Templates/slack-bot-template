@@ -16,7 +16,7 @@ public class MangoCommand implements CommandService {
 
     @Override
     public boolean supports(SlackCommandRequest dto) {
-        return dto.command().equals("/mango");
+        return dto.command().equals(SLASH_COMMAND);
     }
 
     @Override
