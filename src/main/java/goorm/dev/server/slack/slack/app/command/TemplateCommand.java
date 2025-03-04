@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TemplateCommand  implements CommandService {
 
+    private static final String SLASH_COMMAND = "/{my_command}";
+
     @Override
     public boolean supports(SlackCommandRequest dto) {
         // check if the command matches the one I set
-        return dto.command().equals("/{my_command}");
+        return dto.command().equals(SLASH_COMMAND);
     }
 
     @Override

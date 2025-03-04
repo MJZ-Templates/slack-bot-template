@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MangoCommand implements CommandService {
 
+    private static final String SLASH_COMMAND = "/mango";
+
     private final AiService aiService;
 
     @Override
