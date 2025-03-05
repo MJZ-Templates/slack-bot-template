@@ -28,8 +28,9 @@ public class SlackCommandService {
 
         log.info("SlackCommandService.processCommand: {}", dto);
         String result = commandService.processCommand(dto);
-//        messageService.sendMessage(dto.channelId(), result); // If you send a message to messageService.send, the message will be delivered to all users in the channel.
-        return result; // If you return the message(result), the message only delivered to called user.
+        messageService.sendMessage(dto.channelId(), result); // If you send a message to messageService.send, the message will be delivered to all users in the channel.
+//        return result; // If you return the message(result), the message only delivered to called user.
+        return "OK";
     }
 
     private CommandService getCommandService(SlackCommandRequest dto) {

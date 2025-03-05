@@ -30,7 +30,6 @@ public class OpenAiService implements AiService {
         // can add prompt parameters with Map.of("key", "value")
         Prompt prompt = promptTemplate.create(Map.of("message", message));
         ChatResponse response = chatModel.call(prompt);
-        log.info("prompt is {}", prompt.getContents());
 
         return response.getResult().getOutput().getContent();
     }
