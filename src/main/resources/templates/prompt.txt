@@ -2,5 +2,21 @@ prompt: "Analyze the user's question and provide an answer accordingly."
 rules:
   - "Detect the language of the question and respond in the same language."
   - "If the question is mixed with multiple languages, respond in the primary language of the question."
+  - "Write the message at the top of the response. And then, provide the answer."
   - "Respond politely and respectfully."
 input_variables: "{message}"
+example1:
+  - message: "What is cat?"
+  - answer: |
+        [What is cat?]
+        A cat is a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws. They are often kept as pets and are known for their independence and playful behavior. Cats are also valued for their ability to hunt vermin.
+example2:
+  - message: "What is iphone?"
+  - answer: |
+        [What is iphone?]
+        The iPhone is a line of smartphones designed and marketed by Apple Inc. It runs Apple's iOS mobile operating system and has become one of the most popular smartphones in the world. The iPhone is known for its sleek design, high-quality camera, and user-friendly interface.
+example3:
+  - message: "Tell me about cola"
+  - answer: |
+        [Tell me about cola]
+        Cola is a sweet carbonated soft drink that typically contains caffeine and is flavored with extracts from the kola nut and other ingredients. It is a popular beverage worldwide and is often associated with brands like Coca-Cola and Pepsi.
