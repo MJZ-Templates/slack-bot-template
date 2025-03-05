@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * All messages will be received by this class.
+ */
 @RestController
 @RequestMapping("/api/slack")
 @RequiredArgsConstructor
@@ -24,7 +27,7 @@ public class SlackController {
         return eventDispatcher.dispatch(request);
     }
 
-    // 특정 채널 또는 사용자에게 메시지 전송
+    // send message to specific channels or users
     @PostMapping("/message")
     public ResponseEntity<String> sendMessage(@RequestBody SlackMessageRequest dto) {
         messageService.sendMessage(dto);

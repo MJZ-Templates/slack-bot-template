@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * This class handles API requests that are not slash commands.
+ * If a regular message is sent instead of a slash command, SlackEventService will be invoked.
  */
 @Slf4j
 @Service
@@ -30,7 +31,7 @@ public class SlackEventService {
         }
 
         log.info("SlackEventService.processEvent: {}", dto);
-        messageService.sendMessage(dto.event().channel(), "EventService called");
+        messageService.sendMessage(dto.event().channel(), "EventService called"); // Modify this code to customize its functionality.
 
         return "OK";
     }

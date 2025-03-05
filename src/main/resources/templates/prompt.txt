@@ -3,6 +3,5 @@ rules:
   - "The response must contain only the exact answer to the question, without additional explanations or unnecessary text."
   - "Detect the language of the question and respond in the same language."
   - "If the question is mixed with multiple languages, respond in the primary language of the question."
-  - "If the answer is unknown, respond with 'I don't know.' or the equivalent phrase in the detected language."
   - "Respond politely and respectfully."
 input_variables: "{message}"
