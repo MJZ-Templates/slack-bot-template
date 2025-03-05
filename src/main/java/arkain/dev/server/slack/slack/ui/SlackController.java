@@ -1,5 +1,6 @@
 package arkain.dev.server.slack.slack.ui;
 
+import arkain.dev.server.slack.slack.app.EventDispatcher;
 import arkain.dev.server.slack.slack.app.MessageService;
 import arkain.dev.server.slack.slack.app.dto.SlackMessageRequest;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,9 +23,8 @@ public class SlackController {
     private final EventDispatcher eventDispatcher;
 
     @PostMapping("/events")
-    public String handleSlackRequest(HttpServletRequest request) {
-
-        return eventDispatcher.dispatch(request);
+    public ResponseEntity<String> handleSlackRequest(HttpServletRequest request) {
+        return ResponseEntity.ok(eventDispatcher.dispatch(request));
     }
 
     // send message to specific channels or users

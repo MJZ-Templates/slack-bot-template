@@ -1,6 +1,5 @@
-package arkain.dev.server.slack.slack.ui;
+package arkain.dev.server.slack.slack.app;
 
-import arkain.dev.server.slack.slack.app.*;
 import groovy.util.logging.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +20,11 @@ public class EventDispatcher {
 
     public String dispatch(HttpServletRequest request) {
         if (request.getContentType().contains("application/x-www-form-urlencoded")) {
-            return slackCommandService.processCommand(request);
+            slackCommandService.processCommand(request);
         } else {
-            return slackEventService.processEvent(request);
+            slackEventService.processEvent(request);
         }
+
+        return "ok";
     }
 }
