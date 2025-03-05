@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# 사용자 입력을 통해 Slack API 토큰을 받음
+# Prompt the user to enter their Slack API token securely
 read -sp "Enter your Slack Bot Token: " SLACK_TOKEN
 echo ""
 
-# Slack API 호출 (채널 목록 조회) + JSON 포맷팅
+# Call the Slack API to retrieve the list of channels and format the JSON output
 curl -s -X GET "https://slack.com/api/conversations.list" \
      -H "Authorization: Bearer $SLACK_TOKEN" \
      -H "Content-Type: application/json" | jq .
-

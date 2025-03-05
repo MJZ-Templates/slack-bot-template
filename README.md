@@ -32,9 +32,8 @@
 **Slack Configuration**
 1. Before developing a Slack API Bot, environment setup is required.
 2. Configuration can be done on the [Slack API site](https://api.slack.com/apps/).
-3. For more details, refer to [this guide](https://tech.goorm.io/ko/%EC%8A%AC%EB%9E%99%EB%B4%87-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EC%96%B4%EB%A0%B5%EC%A7%80-%EC%95%8A%EC%95%84%EC%9A%94/).
-4. You can get **SIGNING_SECRET, SLACK_BOT_TOKEN** through the configuration.
-5. **1️⃣ Using `export` Command**
+3. You can get **SIGNING_SECRET, SLACK_BOT_TOKEN** through the configuration.
+4. **1️⃣ Using `export` Command**
 
 Run the following commands in the terminal (inside the project root). Note that these need to be re-entered each time the container restarts.
 ```sh
@@ -152,7 +151,7 @@ chat:
 └── src
     ├── main
     ├── java
-    │   └── goorm
+    │   └── arkain
     │       └── dev
     │           └── server
     │               └── slack
@@ -177,10 +176,10 @@ chat:
 
 ### 🔧 Tip & Guide
 1. Adding Custom Commands
-* Copy and paste the `TemplateCommand` in `src/main/java/goorm/dev/server/slack/common` to create a new command.
+* Copy and paste the `TemplateCommand` in `src/main/java/arkain/dev/server/slack/common` to create a new command.
 * Ensure that the new command class has a unique name.
 * The command should match the **Slash Commands** configured in the Slack API.
-* Refer to the `MangoCommand` example, which uses OpenAI to answer user queries.
+* Refer to the `ArkainCommand` example, which uses OpenAI to answer user queries.
 * To add a new command, visit the [Slack API site](https://api.slack.com/apps/) and configure **Slash Commands**.
 
 ```java
@@ -202,19 +201,19 @@ public class TemplateCommand implements CommandService {
 }
 ```
 
-Example: Adding a `/goorm` slash command.
+Example: Adding a `/arkain` slash command.
 
 1. Visit the Slack API site and create a new Slash Command under:
     - Features > Slash Commands > Create New Command
-    - Add `/goorm` as an example.
-2. Copy and paste `TemplateCommand` and rename it to `GoormCommand`.
+    - Add `/arkain` as an example.
+2. Copy and paste `TemplateCommand` and rename it to `ArkainCommand`.
 
 ```java
 @Service
 @RequiredArgsConstructor
-public class GoormCommand implements CommandService {
+public class ArkainCommand implements CommandService {
 
-  private static final String SLASH_COMMAND = "/goorm";
+  private static final String SLASH_COMMAND = "/arkain";
 
   @Override
   public boolean supports(SlackCommandRequest dto) {
@@ -223,7 +222,7 @@ public class GoormCommand implements CommandService {
 
   @Override
   public String processCommand(SlackCommandRequest dto) {
-    return "Hello from GoormCommand!";
+    return "Hello from ArkainCommand!";
   }
 }
 ```
