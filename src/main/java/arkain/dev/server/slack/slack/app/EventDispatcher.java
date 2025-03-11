@@ -32,7 +32,6 @@ public class EventDispatcher {
             log.error("Error processing Slack request", e);
             return "error";
         }
-
         return "ok";
     }
 }

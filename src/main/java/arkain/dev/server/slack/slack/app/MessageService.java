@@ -29,6 +29,7 @@ public class MessageService {
             slack.chatPostMessage(request);
         } catch (IOException | SlackApiException e) {
             log.error("Slack message send failed for channel {}: {}", channel, e.getMessage(), e);
+            throw new RuntimeException("Slack message send failed", e);
         }
     }
 

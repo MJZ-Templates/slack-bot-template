@@ -27,9 +27,9 @@ public class OpenAiService implements AiService {
     public String getResponse(String message) {
         PromptTemplate promptTemplate = new PromptTemplate(prompt);
 
-        Prompt prompt = promptTemplate.create(Map.of("message", message));
+        Prompt generatedPrompt = promptTemplate.create(Map.of("message", message));
         try {
-            ChatResponse response = chatModel.call(prompt);
+            ChatResponse response = chatModel.call(generatedPrompt);
             return response.getResult().getOutput().getContent();
         } catch (Exception e) {
             log.error("Error occurred while calling OpenAI API", e);

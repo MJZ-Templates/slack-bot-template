@@ -27,7 +27,7 @@ public class SlackRequestConverter {
             // convert json data to map
             Map<String, Object> jsonMap = objectMapper.readValue(requestBody, Map.class);
             Object eventObj = jsonMap.get("event");
-            Map<String, Object> eventMap = (eventObj instanceof Map) ? (Map<String, Object>) eventObj : null;
+            Map<String, Object> eventMap = (eventObj instanceof Map<?, ?> map) ? (Map<String, Object>) map : null;
 
             // create dto only if event exists
             if (eventMap != null) {

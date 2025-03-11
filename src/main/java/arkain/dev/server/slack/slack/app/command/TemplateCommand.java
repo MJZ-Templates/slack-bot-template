@@ -19,7 +19,7 @@ public class TemplateCommand  implements CommandService {
     @Override
     public boolean supports(SlackCommandRequest dto) {
         // check if the command matches the one I set
-        return dto.command().equals(SLASH_COMMAND);
+        return SLASH_COMMAND.equals(dto.command());
     }
 
     @Override
