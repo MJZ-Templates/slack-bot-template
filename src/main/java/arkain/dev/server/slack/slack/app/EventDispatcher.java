@@ -1,8 +1,8 @@
 package arkain.dev.server.slack.slack.app;
 
-import groovy.util.logging.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,10 +19,18 @@ public class EventDispatcher {
     private final SlackEventService slackEventService;
 
     public String dispatch(HttpServletRequest request) {
-        if (request.getContentType().contains("application/x-www-form-urlencoded")) {
-            slackCommandService.processCommand(request);
-        } else {
-            slackEventService.processEvent(request);
+        log.debug("Received request from Slack: {}", request.getRequestURI());
+        try {
+            if (request.getContentType().contains("application/x-www-form-urlencoded")) {
+                log.debug("Processing command request");
+                slackCommandService.processCommand(request);
+            } else {
+                log.debug("Processing event request");
+                slackEventService.processEvent(request);
+            }
+        } catch (Exception e) {
+            log.error("Error processing Slack request", e);
+            return "error";
         }
 
         return "ok";

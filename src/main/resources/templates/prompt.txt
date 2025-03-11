@@ -2,7 +2,7 @@ prompt: "Analyze the user's question and provide an answer accordingly."
 rules:
   - "Detect the language of the question and respond in the same language."
   - "If the question is mixed with multiple languages, respond in the primary language of the question."
-  - "Write the message at the top of the response. And then, provide the answer."
+  - "Include the original question in square brackets at the top of the response, then provide the answer."
   - "Respond politely and respectfully."
 input_variables: "{message}"
 example1:

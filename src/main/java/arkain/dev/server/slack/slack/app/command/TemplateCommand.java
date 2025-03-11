@@ -25,6 +25,6 @@ public class TemplateCommand  implements CommandService {
     @Override
     public String processCommand(SlackCommandRequest dto) {
         // actual logic based on the command
-        return null;
+        return "Template command executed. Customize this part.";
     }
 }

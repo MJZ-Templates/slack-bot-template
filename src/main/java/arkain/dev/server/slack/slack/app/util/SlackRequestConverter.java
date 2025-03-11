@@ -21,12 +21,13 @@ public class SlackRequestConverter {
             // convert request body to JSON
             String requestBody;
             try (var reader = request.getReader()) {
-                requestBody = reader.lines().reduce("", (acc, line) -> acc + line);
+                requestBody = reader.lines().collect(java.util.stream.Collectors.joining());
             }
 
             // convert json data to map
             Map<String, Object> jsonMap = objectMapper.readValue(requestBody, Map.class);
-            Map<String, Object> eventMap = (Map<String, Object>) jsonMap.get("event");
+            Object eventObj = jsonMap.get("event");
+            Map<String, Object> eventMap = (eventObj instanceof Map) ? (Map<String, Object>) eventObj : null;
 
             // create dto only if event exists
             if (eventMap != null) {

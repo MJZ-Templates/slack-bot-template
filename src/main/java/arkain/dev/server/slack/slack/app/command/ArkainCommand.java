@@ -16,11 +16,15 @@ public class ArkainCommand implements CommandService {
 
     @Override
     public boolean supports(SlackCommandRequest dto) {
-        return dto.command().equals(SLASH_COMMAND);
+        return SLASH_COMMAND.equals(dto.command());
     }
 
     @Override
     public String processCommand(SlackCommandRequest dto) {
-        return aiService.getResponse(dto.text());
+        String text = dto.text();
+        if (text == null || text.trim().isEmpty()) {
+            return "Please enter a question.";
+        }
+        return aiService.getResponse(text);
     }
 }

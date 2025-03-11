@@ -111,7 +111,7 @@ To use the LLM feature, **OPENAI_API_KEY** is required.
 - The key should be registered in `application.yml` or set as an environment variable.
 
 
-You can use `export` command in theterminal.
+You can use `export` command in the terminal.
 
 ```sh
 export OPENAI_API_KEY="your_openai_api_key"
@@ -132,8 +132,8 @@ spring:
 
 **Shell Commands**
 
-If the Channel ID or Slack Bot ID is needed, the template provides shell commands to fetch these values easily.
-It also mentions that only the SLACK_BOT_TOKEN is required to execute these commands.
+* If the Channel ID or Slack Bot ID is needed, the template provides shell commands to fetch these values easily.
+* Only the `SLACK_BOT_TOKEN` is required to execute these commands.
 <br>
 
 1. Retrieve Channel ID
@@ -177,7 +177,7 @@ chat:
 <br>
 
  **Adding Custom Commands**
-* Copy and paste the `TemplateCommand` in `src/main/java/arkain/dev/server/slack/common` to create a new command.
+* Copy and paste the `TemplateCommand` in `/workspace/slack/slack/src/main/java/arkain/dev/server/slack/slack/app/command/TemplateCommand.java` to create a new command.
 * Ensure that the new command class has a unique name.
 * The command should match the **Slash Commands** configured in the Slack API.
 * Refer to the `ArkainCommand` example, which uses OpenAI to answer user queries.
@@ -197,7 +197,7 @@ public class TemplateCommand implements CommandService {
 
   @Override
   public String processCommand(SlackCommandRequest dto) {
-    return null;
+      return "Template command executed. Customize this part.";
   }
 }
 ```

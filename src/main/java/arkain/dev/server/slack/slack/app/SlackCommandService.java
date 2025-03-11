@@ -28,16 +28,17 @@ public class SlackCommandService {
         SlackCommandRequest dto = converter.convert(request);
         CommandService commandService = getCommandService(dto);
 
-        log.info("SlackCommandService.processCommand: {}", dto);
+        log.info("SlackCommandService.processCommand: command={}, channel={}", dto.command(), dto.channelId());
         String result = commandService.processCommand(dto);
-        messageService.sendMessage(dto.channelId(), result); // If you send a message to messageService.send, the message will be delivered to all users in the channel.
+        messageService.sendMessage(dto.channelId(), result); // If you send a message to messageService.sendService, the message will be delivered to all users in the channel.
     }
 
     private CommandService getCommandService(SlackCommandRequest dto) {
         return commandServices.stream()
                 .filter(commandService -> commandService.supports(dto))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Not supported command"));
+                .orElseThrow(() -> new IllegalArgumentException("Not supported command: " + dto.command()));
+
     }
 }
 

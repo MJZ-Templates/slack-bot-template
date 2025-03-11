@@ -17,19 +17,19 @@ public class SlackCommandConverter {
 
         // convert request form data to key-value format
         request.getParameterMap().forEach((key, values) -> {
-            if (values.length > 0) {
+            if (values != null && values.length > 0) {
                 params.put(key, values[0]);
             }
         });
 
         return new SlackCommandRequest(
-                (String) params.getOrDefault("token", ""),
-                (String) params.getOrDefault("channel_id", ""),
-                (String) params.getOrDefault("channel_name", ""),
-                (String) params.getOrDefault("user_id", ""),
-                (String) params.getOrDefault("user_name", ""),
-                (String) params.getOrDefault("command", ""),
-                (String) params.getOrDefault("text", "")
+                params.getOrDefault("token", ""),
+                params.getOrDefault("channel_id", ""),
+                params.getOrDefault("channel_name", ""),
+                params.getOrDefault("user_id", ""),
+                params.getOrDefault("user_name", ""),
+                params.getOrDefault("command", ""),
+                params.getOrDefault("text", "")
         );
     }
 }

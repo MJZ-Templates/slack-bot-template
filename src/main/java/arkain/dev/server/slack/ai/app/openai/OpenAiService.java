@@ -21,16 +21,19 @@ public class OpenAiService implements AiService {
     private final ChatModel chatModel;
 
     @Value("classpath:/templates/prompt.txt")
-    private Resource examplePrompt;
+    private Resource prompt;
 
     @Override
     public String getResponse(String message) {
-        PromptTemplate promptTemplate = new PromptTemplate(examplePrompt);
+        PromptTemplate promptTemplate = new PromptTemplate(prompt);
 
-        // can add prompt parameters with Map.of("key", "value")
         Prompt prompt = promptTemplate.create(Map.of("message", message));
-        ChatResponse response = chatModel.call(prompt);
-
-        return response.getResult().getOutput().getContent();
+        try {
+            ChatResponse response = chatModel.call(prompt);
+            return response.getResult().getOutput().getContent();
+        } catch (Exception e) {
+            log.error("Error occurred while calling OpenAI API", e);
+            return "Sorry, an error occurred while generating the response.";
+        }
     }
 }

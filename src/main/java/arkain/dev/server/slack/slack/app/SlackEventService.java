@@ -32,7 +32,8 @@ public class SlackEventService {
             return;
         }
 
-        log.info("SlackEventService.processEvent: {}", dto);
-        messageService.sendMessage(dto.event().channel(), "EventService called"); // Modify this code to customize its functionality.
+        log.debug("SlackEventService.processEvent: {}", dto);
+        // TODO : Modify this code to customize its functionality.
+        messageService.sendMessage(dto.event().channel(), "EventService called. Modify this code to customize its functionality.");
     }
 }
